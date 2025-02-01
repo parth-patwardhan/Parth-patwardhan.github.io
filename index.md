@@ -9,7 +9,7 @@ To address this challenge, **Zero-Shot Learning (ZSL) and Few-Shot Learning (FSL
 ### What is MeSH?
 MeSH (Medical Subject Headings) is a controlled vocabulary developed by the National Library of Medicine (NLM). It is used for indexing biomedical literature systematically. The hierarchy allows researchers to find related topics easily. 
 
-![mesh_descriptors(/images/mesh_descriptors.png)]
+![MeSH Descriptors](images/mesh_descriptors.png)
 
 ### Why is MeSH Important?
 - It provides structured categorization.
@@ -18,7 +18,7 @@ MeSH (Medical Subject Headings) is a controlled vocabulary developed by the Nati
 
 During the COVID-19 pandemic, new biomedical concepts emerged rapidly, necessitating fast and accurate classification of research articles. Traditional methods struggled to keep up, making automated classification models highly valuable.
 
-https://github.com/parth-patwardhan/Parth-patwardhan.github.io/blob/main/images/mesh_dataset_hierarchy.png?raw=true
+![MeSH Dataset Hierarchy](images/mesh_dataset_hierarchy.png)
 
 ## Zero-Shot Learning (ZSL) and Few-Shot Learning (FSL) in Biomedical Text Classification
 ### What is Zero-Shot Learning?
@@ -30,7 +30,7 @@ BioBERT is a pre-trained transformer model specialized for biomedical text. It i
 2. **Multi-Task Learning (MTL):** This approach integrates the MeSH hierarchy, enhancing classification accuracy by incorporating additional context.
 
 
-https://github.com/parth-patwardhan/Parth-patwardhan.github.io/blob/main/images/bio_bert_model.png?raw=true
+![BioBERT Model](images/bio_bert_model.png)
 
 
 ## Hierarchical Probing: Understanding the Model’s Knowledge
@@ -54,7 +54,7 @@ These probing tasks help determine how well the model captures biomedical relati
 - **STL Model:** Shows strong generalization for broader MeSH categories.
 - **MTL Model:** Performs better in distinguishing fine-grained, closely related terms by leveraging hierarchical relationships.
 
-https://github.com/parth-patwardhan/Parth-patwardhan.github.io/blob/main/images/metrics.png?raw=true
+![Metrics](images/metrics.png)
 
 ## Challenges and Suggested Improvements
 ### Challenges Faced
