@@ -9,7 +9,7 @@ To address this challenge, **Zero-Shot Learning (ZSL) and Few-Shot Learning (FSL
 ### What is MeSH?
 MeSH (Medical Subject Headings) is a controlled vocabulary developed by the National Library of Medicine (NLM). It is used for indexing biomedical literature systematically. The hierarchy allows researchers to find related topics easily. 
 
-https://github.com/parth-patwardhan/Parth-patwardhan.github.io/blob/main/images/mesh_descriptors.png?raw=true
+/images/mesh_descriptors.png?raw=true
 
 ### Why is MeSH Important?
 - It provides structured categorization.
