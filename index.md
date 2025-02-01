@@ -63,30 +63,6 @@ These probing tasks help determine how well the model captures biomedical relati
 ## Why This Study Matters
 Automating biomedical classification can significantly improve research efficiency, especially during health crises. Zero-Shot Learning allows us to categorize new findings swiftly, aiding healthcare professionals and researchers in making data-driven decisions. This study provides a foundation for further enhancements in automatic text classification for biomedical literature.
 
-## Visual Representations and Image Sources
-### Suggested Images and Placement:
-1. **MeSH Hierarchy Example** (Introduction) – Source: National Library of Medicine.
-2. **BioBERT Architecture** (Zero-Shot Classification section) – Adapted from research paper diagrams.
-3. **Hierarchical Probing Tasks** (Hierarchical Probing section) – Illustration of shortest path and common ancestors probes.
-4. **Experimental Setup** (Datasets section) – Workflow diagram showing data processing.
-5. **Performance Graphs** (Evaluation section) – Visual comparison of STL vs. MTL models.
-
-## Hosting the Report on GitHub Pages
-### Steps to Publish the Report:
-1. **Create a GitHub Repository** (if not already created).
-2. **Upload a Markdown File:**
-   - Save this document as `index.md`.
-   - Commit and push it to the repository.
-3. **Enable GitHub Pages:**
-   - Go to repository settings → Pages.
-   - Set the source to `main` branch and root directory.
-4. **Access the Report via GitHub Pages Link:**
-   - Your report will be available at `https://your-username.github.io/your-repo-name/`.
-
 ## Conclusion
 This study highlights the power of Zero-Shot Learning for biomedical article classification. By leveraging hierarchical relationships and sophisticated NLP models like BioBERT, researchers can improve classification accuracy and scalability. Future research should focus on enhancing hierarchical sampling techniques and integrating retrieval-based methods to optimize performance further.
-
----
-
-This expanded report ensures a deeper exploration of the topic while maintaining clarity and engagement. Additional diagrams and explanations will further improve comprehension. Let me know if you need further refinements!
 
