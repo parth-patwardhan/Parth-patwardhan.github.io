@@ -54,16 +54,18 @@ The proposed model architecture consists of two key components:
 
 The total loss for the multi-task learning framework is defined as:
 
-\[
+$$
 \text{loss}_{\text{tot}} = \frac{1}{2\sigma_1^2} \text{loss}_1 + \frac{1}{2\sigma_2^2} \text{loss}_2 + \log(\sigma_1\sigma_2)
-\]
+$$
 
 Where:
-- \(\text{loss}_1\) is the **binary cross-entropy loss** for the primary classification task (classifying the article into a MeSH category).
-- \(\text{loss}_2\) is the **negative log-likelihood loss** for the auxiliary sequence-to-sequence task (predicting the hierarchical position of MeSH terms).
-- \(\sigma_1\) and \(\sigma_2\) are learnable parameters that balance the contributions of the two loss components.
 
-The inclusion of the \(\log(\sigma_1\sigma_2)\) term serves as a **regularization factor** that prevents the model from overemphasizing one task at the cost of the other, ensuring a balanced and effective learning process.
+- $\text{loss}_1$ is the binary cross-entropy loss for the primary classification task (classifying the article into a MeSH category).
+- $\text{loss}_2$ is the negative log-likelihood loss for the auxiliary sequence-to-sequence task (predicting the hierarchical position of MeSH terms).
+- $\sigma_1$ and $\sigma_2$ are learnable parameters that balance the contributions of the two loss components.
+
+
+The inclusion of the sigma_1 and sigma_2 term serves as a **regularization factor** that prevents the model from overemphasizing one task at the cost of the other, ensuring a balanced and effective learning process.
 
 ## Experimental Setup
 
