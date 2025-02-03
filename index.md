@@ -32,9 +32,6 @@ Both ZSL and FSL are highly relevant to the biomedical domain, where new disease
 
 BioBERT has demonstrated superior performance over general-domain BERT models in various biomedical NLP tasks, making it a powerful tool for processing and analyzing biomedical literature. It has proven to be particularly effective in understanding the intricacies of biomedical terminology, which is essential for accurately classifying biomedical articles according to MeSH terms or any other hierarchical label system.
 
-![Alt text](mesh_descriptors.png)
-
-
 Here is how the hierarchy of the MesH Dataset Looks Like:
 
 ![Alt text](mesh_dataset_hierarchy.png)
