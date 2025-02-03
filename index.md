@@ -1,3 +1,13 @@
+<script type="text/javascript" async
+  src="https://polyfill.io/v3/polyfill.min.js?features=es6">
+</script>
+<script type="text/javascript" async
+  id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+
+
+
 # Zero-Shot and Few-Shot Classification of Biomedical Articles: A Comprehensive Analysis
 
 ## Introduction
@@ -34,12 +44,13 @@ BioBERT is a pre-trained transformer model specialized for biomedical text. It i
 ## Mathematical Formulation
 To train a robust classifier, we define a **multi-task loss function** that optimizes both binary classification and hierarchical prediction:
 
-\[ \mathcal{L}_{tot} = \frac{1}{2\sigma_1^2} \mathcal{L}_1 + \frac{1}{2\sigma_2^2} \mathcal{L}_2 + \log(\sigma_1 \sigma_2) \]
+$$ 
+\mathcal{L}_{tot} = \frac{1}{2\sigma_1^2} \mathcal{L}_1 + \frac{1}{2\sigma_2^2} \mathcal{L}_2 + \log(\sigma_1 \sigma_2)
+$$
+
 
 where:
-- \( \mathcal{L}_1 \) is the binary cross-entropy loss for classification.
-- \( \mathcal{L}_2 \) is the negative log-likelihood loss for hierarchical prediction.
-- \( \sigma_1 \) and \( \sigma_2 \) are learnable parameters that balance the losses.
+The loss function is defined as $ \mathcal{L}_{tot} = \frac{1}{2\sigma_1^2} \mathcal{L}_1 + \frac{1}{2\sigma_2^2} \mathcal{L}_2 + \log(\sigma_1 \sigma_2) $.
 
 ## Hierarchical Probing: Understanding the Model’s Knowledge
 To assess whether BioBERT effectively learns the MeSH hierarchy, two **probing tasks** were used:
