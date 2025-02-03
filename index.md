@@ -113,6 +113,11 @@ Several previous studies have explored hierarchical classification in biomedical
 
 Another relevant approach is **BERTMeSH**, which integrates BERT-based models with MeSH for large-scale biomedical indexing. BERTMeSH fine-tunes BERT on biomedical texts to generate contextual representations of MeSH terms, improving the accuracy of term assignment.
 
+
+![Alt text](bio_bert_model.png)
+
+
+
 ### Document Retrieval Technologies
 
 Document retrieval technologies can further enhance the proposed approach by improving the accuracy and efficiency of article retrieval. By incorporating advanced **information retrieval (IR)** methods, the system can retrieve more relevant biomedical articles, enabling better classification. Some key techniques that can be applied to improve the project include:
