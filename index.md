@@ -16,6 +16,10 @@ In this report, we explore the potential of combining **BioBERT**, a domain-spec
 
 This organization of biomedical knowledge into a tree structure provides not only a way to classify research articles but also serves as a valuable source of semantic information. Researchers can leverage MeSH to improve the accuracy and specificity of article retrieval and classification. The comprehensive nature of MeSH makes it an invaluable resource, especially in rapidly changing fields like **COVID-19** research, where new terms and concepts emerge regularly.
 
+![Alt text](mesh_descriptors.png)
+
+
+
 ### Zero-Shot and Few-Shot Learning
 
 In machine learning, **zero-shot learning (ZSL)** refers to the ability of a model to correctly classify data into classes it has never encountered during training. This capability is typically achieved by providing the model with auxiliary information, such as semantic embeddings or textual descriptions of unseen classes. In contrast, **few-shot learning (FSL)** deals with scenarios where only a small number of labeled examples per class are available. 
@@ -27,6 +31,15 @@ Both ZSL and FSL are highly relevant to the biomedical domain, where new disease
 **BioBERT** is a pre-trained **transformer-based language model** specifically designed for biomedical text mining tasks. It is built on the **BERT architecture** (Bidirectional Encoder Representations from Transformers) and trained on large-scale biomedical corpora, including **PubMed abstracts** and **PMC full-text articles**. By fine-tuning BERT on biomedical text, BioBERT is able to capture domain-specific language patterns, terminology, and relationships that are crucial for tasks such as **named entity recognition (NER)**, **relation extraction**, and **question answering** in biomedical contexts. 
 
 BioBERT has demonstrated superior performance over general-domain BERT models in various biomedical NLP tasks, making it a powerful tool for processing and analyzing biomedical literature. It has proven to be particularly effective in understanding the intricacies of biomedical terminology, which is essential for accurately classifying biomedical articles according to MeSH terms or any other hierarchical label system.
+
+![Alt text](mesh_descriptors.png)
+
+
+Here is how the hierarchy of the MesH Dataset Looks Like:
+
+![Alt text](mesh_dataset_hierarchy.png)
+
+
 
 ## Proposed Approach
 
@@ -71,6 +84,9 @@ To assess the performance of the model, we use several standard classification m
 - **Precision**: Measures the accuracy of positive predictions.
 - **Recall**: Measures the ability of the model to identify all relevant instances.
 - **F1-score**: The harmonic mean of precision and recall, providing a balance between the two.
+
+![Alt text](metrics.png)
+
 
 Additionally, we employ **hierarchical evaluation metrics** to evaluate how well the model captures the hierarchical relationships in MeSH:
 - **Shortest Path Distance**: Measures the minimum distance between two MeSH terms in the hierarchy.
