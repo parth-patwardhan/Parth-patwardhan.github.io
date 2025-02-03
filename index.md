@@ -1,126 +1,95 @@
----
-title: "Zero-Shot and Few-Shot Classification of Biomedical Articles"
-description: "An in-depth explanation of the paper discussing Zero-Shot and Few-Shot Learning for Biomedical Article Classification using BioBERT."
----
+# Zero-Shot and Few-Shot Classification of Biomedical Articles in the Context of the COVID-19 Pandemic
 
-# **Zero-Shot and Few-Shot Classification of Biomedical Articles**
+## Introduction
 
-## **Introduction**
-- The COVID-19 pandemic led to a rapid increase in biomedical publications.
-- **MeSH (Medical Subject Headings)** helps classify articles into categories, but manual labeling is slow.
-- **Zero-Shot Learning (ZSL)**: The model classifies unseen categories.
-- **Few-Shot Learning (FSL)**: The model learns with very few samples.
-- The authors use **BioBERT**, a specialized version of BERT trained on biomedical data, to improve classification.
+The rapid emergence of the COVID-19 pandemic has led to an unprecedented influx of biomedical literature. Efficiently categorizing and indexing this vast amount of information is crucial for researchers and healthcare professionals. Traditional manual annotation methods, such as assigning Medical Subject Headings (MeSH) to articles, are labor-intensive and time-consuming. To address this challenge, the application of zero-shot and few-shot learning approaches has gained attention. These methods aim to classify biomedical articles into categories with little to no labeled data, leveraging advanced natural language processing (NLP) models and the rich semantic structure of MeSH.
 
----
+## Background
 
-## **Related Work**
-- **Zero-Shot Learning**: Uses pretrained models like BERT/BioBERT.
-- **Fine-Grained Biomedical Classification**: Most prior work focuses on simple MeSH term retrieval.
-- **Probing**: Used to analyze how much hierarchical knowledge a model learns.
+### Medical Subject Headings (MeSH)
 
----
+MeSH is a comprehensive controlled vocabulary used by the National Library of Medicine for indexing articles in PubMed. It organizes biomedical terms into a hierarchical structure, allowing for precise and consistent categorization of topics. Each MeSH term is associated with a definition and a unique tree number that indicates its position in the hierarchy. This structure facilitates detailed indexing and retrieval of biomedical information.
 
-## **Proposed Approach**
-### **Zero-Shot Learning Architectures**
-1. **BioBERT Single-Task Learning (STL)**:
-   - Uses BioBERT to match **MeSH descriptors** with **paper abstracts**.
-   - Output: A probability score indicating relevance.
+### Zero-Shot and Few-Shot Learning
 
-2. **BioBERT Multi-Task Learning (MTL)**:
-   - Adds a **decoder module** to predict **MeSH hierarchy position**.
-   - **Goal**: Improve the model's understanding of hierarchical relationships.
+In machine learning, zero-shot learning (ZSL) refers to the ability of a model to classify instances from classes that it has never seen during training. This is achieved by leveraging auxiliary information, such as semantic embeddings or descriptions of the unseen classes. Few-shot learning (FSL), on the other hand, deals with scenarios where only a limited number of labeled examples are available for certain classes. Both approaches are particularly valuable in biomedical domains, where new diseases or concepts may emerge rapidly, and labeled data may be scarce.
 
-### **Mathematical Formulations**
-#### **Multi-Task Learning Loss**
-$$
-\text{losstot} = \frac{1}{2\sigma_1^2} \text{loss}_1 + \frac{1}{2\sigma_2^2} \text{loss}_2 + \log(\sigma_1\sigma_2)
-$$
-- \( \text{loss}_1 \): Binary classification loss.
-- \( \text{loss}_2 \): Hierarchical generation loss.
-- \( \sigma_1, \sigma_2 \): Learnable weights to balance losses.
+### BioBERT
 
-#### **Attention-Based Hierarchy Prediction**
-1. **Compute attention scores:**
-$$
-\text{att}_j = \text{bert}_h \times h_j
-$$
-2. **Normalize attention weights:**
-$$
-\hat{\text{att}}_j = \text{softmax}(\text{att}_j)
-$$
-3. **Apply attention to BioBERT output:**
-$$
-\text{attn\_applied}_j = \hat{\text{att}}_j^T \times \text{bert}_h
-$$
-4. **GRU-based decoder update:**
-$$
-\text{input}_j = \text{embed}_j + \text{attn\_applied}_j
-$$
-$$
- h_{j+1}, \text{out}_{j+1} = \text{GRU}(h_j, \text{input}_j)
-$$
+BioBERT is a pre-trained language representation model specifically designed for biomedical text mining. It is based on the BERT architecture and has been trained on large-scale biomedical corpora, including PubMed abstracts and PMC full-text articles. BioBERT has demonstrated superior performance in various biomedical NLP tasks, such as named entity recognition, relation extraction, and question answering.
 
----
+## Proposed Approach
 
-## **Probing Hierarchical Knowledge**
-- **Does the model encode MeSH term hierarchy?**
-- **Two probing tasks:**
-  1. **Shortest-Path Probe:** Predicts the distance between two MeSH terms.
-  2. **Common-Ancestors Probe:** Checks how many ancestors two terms share.
+The study proposes a method that enhances BioBERT representations by incorporating the semantic information available in MeSH. The approach involves framing the problem as determining whether the concatenation of a MeSH term definition and a paper abstract constitutes a valid instance. Additionally, a multi-task learning framework is employed to induce the MeSH hierarchy into the representations through a sequence-to-sequence task.
 
-#### **Hierarchy Distance Calculation**
-$$
- d_B(h_i, h_j) = (B(h_i - h_j))^T (B(h_i - h_j))
-$$
-- **\(B\)** is a learnable projection matrix.
-- The model learns a representation where similar MeSH terms are closer.
+### Model Architecture
 
-#### **Loss Function for Probing**
-$$
-\min_B \sum_{i,j} |d_T(h_i, h_j) - d_B(h_i, h_j)|^2
-$$
-- **\(d_T\)**: True distance in MeSH hierarchy.
-- **\(d_B\)**: Model’s predicted distance.
+The model architecture consists of two main components:
 
----
+1. **BioBERT Encoder**: This component encodes both the MeSH term definitions and the paper abstracts into dense vector representations. By leveraging the contextual embeddings from BioBERT, the model captures the semantic nuances of biomedical text.
 
-## **Experimental Settings**
-- **Datasets:**
-  - **Medline/MeSH**: Contains biomedical articles with MeSH term labels.
-  - **LitCovid**: A COVID-19 specific subset with 8 broad categories.
-- **Evaluation Metrics:**
-  - **Balanced Dataset**: Equal number of positive/negative MeSH term labels.
-  - **Siblings Dataset**: Includes MeSH hierarchy relations.
+2. **Multi-Task Learning Framework**: In addition to the primary classification task, the model is trained to predict the hierarchical position of MeSH terms. This is achieved by introducing an auxiliary sequence-to-sequence task that generates the tree numbers associated with MeSH terms. The multi-task learning objective encourages the model to learn representations that are aware of the hierarchical structure of MeSH.
 
----
+### Loss Function
 
-## **Results & Discussion**
-### **Zero/Few-Shot Performance**
-- **BioBERT STL outperforms MTL in general classification.**
-- **BioBERT MTL is better when distinguishing closely related MeSH terms.**
-- **Performance improves with more training data.**
+The total loss for the multi-task learning framework is defined as:
 
-### **Probing Results**
-- **MTL model better encodes hierarchical relations.**
-- **F1-score increases when using hierarchical knowledge.**
+\[
+\text{loss}_{\text{tot}} = \frac{1}{2\sigma_1^2} \text{loss}_1 + \frac{1}{2\sigma_2^2} \text{loss}_2 + \log(\sigma_1\sigma_2)
+\]
 
-### **Limitations and Future Work**
-- **Multi-Task Learning Convergence:** The classification task converges too fast.
-- **Annotation Issues:** Inconsistent MeSH labeling affects performance.
-- **Large-Scale Zero-Shot Learning:** Requires retrieval-based methods.
+Where:
 
----
+- \(\text{loss}_1\) is the binary cross-entropy loss for the primary classification task.
+- \(\text{loss}_2\) is the negative log-likelihood loss for the auxiliary sequence-to-sequence task.
+- \(\sigma_1\) and \(\sigma_2\) are learnable parameters that balance the contributions of the two loss components.
 
-## **Conclusion**
-- **Zero-shot classification is feasible but challenging.**
-- **Multi-task learning improves hierarchical encoding but has marginal impact on classification.**
-- **Future work should explore better retrieval methods and loss functions.**
+The inclusion of the \(\log(\sigma_1\sigma_2)\) term serves as a regularization factor, preventing the model from assigning excessively high values to \(\sigma_1\) or \(\sigma_2\), which could otherwise lead to trivial solutions.
 
----
+## Experimental Setup
 
-## **References**
-- Hewitt, J., & Manning, C. D. (2019). *A Structural Probe for Finding Syntax in Word Representations.*
-- Lee, J., Yoon, W., Kim, S., et al. (2019). *BioBERT: a pre-trained biomedical language representation model for biomedical text mining.*
-- Wang, W., Zheng, V. W., Yu, H., & Miao, C. (2019). *A survey of zero-shot learning: Settings, methods, and applications.*
+### Datasets
 
+The experiments are conducted on two datasets:
+
+1. **MedLine**: A comprehensive dataset containing biomedical articles with associated MeSH annotations. It serves as a standard benchmark for evaluating biomedical text classification models.
+
+2. **LitCovid**: A specialized subset of PubMed that focuses on COVID-19 literature. It includes articles categorized into general topics related to the pandemic, providing a relevant testbed for the proposed approach.
+
+### Evaluation Metrics
+
+The performance of the model is evaluated using standard classification metrics, including precision, recall, and F1-score. Additionally, hierarchical evaluation metrics are employed to assess the model's ability to capture the MeSH hierarchy in its predictions.
+
+## Results and Discussion
+
+### Zero-Shot Classification Performance
+
+The proposed approach demonstrates promising results in zero-shot classification scenarios. By leveraging the semantic information in MeSH and the contextual embeddings from BioBERT, the model effectively assigns appropriate MeSH terms to articles, even when specific terms were not seen during training.
+
+### Few-Shot Classification Performance
+
+In few-shot settings, where limited labeled examples are available, the model benefits from the multi-task learning framework. The auxiliary task of predicting MeSH tree numbers aids in learning more generalized representations, leading to improved performance compared to baseline models.
+
+### Hierarchical Probing
+
+To assess the extent to which the model captures the hierarchical structure of MeSH, probing tasks are conducted. The results indicate that the multi-task learning framework enables the model to encode hierarchical relations, as evidenced by its ability to predict the shortest path distances and common ancestors between MeSH terms.
+
+## Related Work
+
+The integration of hierarchical information into biomedical text classification has been explored in various studies. For instance, the Hierarchical Deep Neural Network (HDNN) architecture has been proposed to exploit the label hierarchy in PubMed article classification tasks. By aligning the network topology with the hierarchical structure of labels, HDNN enhances performance in extreme multi-label text classification scenarios.
+
+Another approach, BERTMeSH, introduces a deep contextual representation learning method for large-scale biomedical MeSH indexing. This method leverages the flexibility of BERT-based models to handle the diverse section organization in full-text articles, improving the accuracy of MeSH term assignment.
+
+## Conclusion
+
+The study presents a novel approach to zero-shot and few-shot classification of biomedical articles by enhancing BioBERT representations with MeSH semantic information. The multi-task learning framework effectively incorporates the hierarchical structure of MeSH into the model, leading to improved performance in both zero-shot and few-shot scenarios. This approach holds promise for efficient and accurate indexing of rapidly emerging biomedical literature, such as that related to the COVID-19 pandemic.
+
+## Future Work
+
+Future research directions include exploring alternative methods for integrating hierarchical information into language models, such as graph neural networks. Additionally, investigating the applicability of the proposed approach to other domains with hierarchical label structures could further validate its effectiveness.
+
+## References
+
+1. Lupart, S., Favre, B., Nikoulina, V., & Ait-Mokhtar, S. (2022). Zero-Shot and Few-Shot Classification of Biomedical Articles in Context of the COVID-19 Pandemic. arXiv preprint arXiv:2201.03017.
+
+2. Zhang, Y., & Lee, J. (2021). BERTMeSH: deep contextual representation learning for large-scale biomedical MeSH indexing 
