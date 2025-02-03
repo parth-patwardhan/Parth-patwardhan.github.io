@@ -41,7 +41,7 @@ $$
 
 
 where:
-The loss function is defined as $ \mathcal{L}_{tot} = \frac{1}{2\sigma_1^2} \mathcal{L}_1 + \frac{1}{2\sigma_2^2} \mathcal{L}_2 + \log(\sigma_1 \sigma_2) $.
+The loss function is defined as $$ \mathcal{L}_{tot} = \frac{1}{2\sigma_1^2} \mathcal{L}_1 + \frac{1}{2\sigma_2^2} \mathcal{L}_2 + \log(\sigma_1 \sigma_2) $$.
 
 ## Hierarchical Probing: Understanding the Model’s Knowledge
 To assess whether BioBERT effectively learns the MeSH hierarchy, two **probing tasks** were used:
