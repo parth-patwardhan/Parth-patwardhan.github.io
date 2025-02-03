@@ -13,26 +13,37 @@ MeSH (Medical Subject Headings) is a controlled vocabulary developed by the Nati
 ![MeSH Descriptors](images/mesh_descriptors.png)
 
 ### Why is MeSH Important?
+
 - Provides structured categorization of biomedical research.
+  
 - Facilitates efficient search and retrieval of relevant literature.
+  
 - Enables systematic reviews and meta-analyses.
 
 During the COVID-19 pandemic, new biomedical concepts emerged rapidly, necessitating fast and accurate classification of research articles. Traditional methods struggled to keep up, highlighting the importance of automated classification models.
 
 ![MeSH Dataset Hierarchy](images/mesh_dataset_hierarchy.png)
 
+
 ## Zero-Shot Learning (ZSL) and Few-Shot Learning (FSL) in Biomedical Text Classification
+
 ### What is Zero-Shot Learning?
+
 ZSL is a classification approach where the model correctly assigns labels it has never seen before. It achieves this by leveraging semantic relationships between known and unknown classes. This is particularly useful in biomedical research, where new diseases, treatments, and conditions emerge frequently.
 
+
 ### How Does BioBERT Enhance ZSL?
+
 BioBERT is a pre-trained transformer model specialized for biomedical text. It incorporates domain-specific knowledge to improve classification accuracy. This study explores two main approaches:
+
 1. **Single-Task Learning (STL):** BioBERT encodes abstracts and MeSH descriptions together.
+  
 2. **Multi-Task Learning (MTL):** Integrates the MeSH hierarchy, enhancing classification accuracy by incorporating additional context.
 
 ![BioBERT Model](images/bio_bert_model.png)
 
-## Mathematical Formulation
+## Mathematical Formulation:
+
 To train a robust classifier, we define a **multi-task loss function** that optimizes both binary classification and hierarchical prediction:
 
 $$ 
@@ -47,50 +58,76 @@ L2 is the negative log-likelihood loss for hierarchical prediction.
 
 Sigma1 and Sigma2 are learnable parameters that balance the losses.
 
+
 ## Hierarchical Probing: Understanding the Model’s Knowledge
+
 To assess whether BioBERT effectively learns the MeSH hierarchy, two **probing tasks** were used:
+
 1. **Shortest-Path Probe:** Measures whether the model encodes distances between MeSH terms accurately.
+
 2. **Common-Ancestors Probe:** Evaluates whether the model understands shared hierarchical ancestry between terms.
 
 These probing tasks help determine how well the model captures biomedical relationships beyond simple keyword matching.
 
 ## Experimental Setup and Evaluation
+
 ### Datasets Used
+
 1. **Medline/MeSH:** A large dataset with extensive MeSH annotations.
+
 2. **LitCovid:** A specialized subset focused on COVID-19-related publications.
 
 ### Evaluation Metrics
+
 - **Zero-Shot Testing:** Evaluates the model’s ability to generalize to unseen labels.
+
 - **Few-Shot Testing:** Tests performance with limited labeled examples.
+
 - **Hierarchical Probing:** Analyzes how well the model captures structured relationships in the dataset.
 
 ### Performance Comparison
+
 - **STL Model:** Shows strong generalization for broader MeSH categories.
+
 - **MTL Model:** Performs better in distinguishing fine-grained, closely related terms by leveraging hierarchical relationships.
 
 ![Metrics](images/metrics.png)
 
 ## Related Work
+
 Several studies have investigated zero-shot and few-shot classification in biomedical literature. Notable works include:
+
 - **Wang et al. (2019)** explored zero-shot learning with pre-trained language models.
+
 - **Chalkidis et al. (2020)** proposed attention mechanisms for text classification.
+
 - **Rios and Kavuluru (2018)** incorporated hierarchical knowledge into biomedical classification.
+
 - **Hewitt and Manning (2019)** introduced structural probing techniques for evaluating model representations.
 
 ## Challenges and Suggested Improvements
 ### Challenges Faced
+
 1. **Handling Rare Categories:** Certain MeSH terms appear infrequently, making it difficult for the model to generalize.
+
 2. **Computational Complexity:** Training on all possible label-document pairs is computationally expensive.
+
 3. **Data Annotation Inconsistencies:** Different datasets may use slightly different labeling schemes, affecting classification performance.
 
 ### Suggested Improvements
+
 1. **Balanced Training:** More sophisticated sampling methods could improve the model’s ability to handle rare categories.
+
 2. **Hierarchical Sampling:** Training with closely related negative examples can enhance term differentiation.
+
 3. **Retrieval-Augmented Classification:** Integrating models like BM25 or ColBERT to first narrow down candidate labels before classification.
 
 ## Future Work
+
 - **Improving the Multi-Task Learning Framework:** Refining the hierarchical loss function to improve precision in zero-shot classification.
+
 - **Incorporating External Knowledge Graphs:** Using biomedical ontologies to improve contextual understanding.
+
 - **Scalability Optimization:** Implementing retrieval-augmented techniques for handling large-scale classification problems efficiently.
 
 ## Conclusion
