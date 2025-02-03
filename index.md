@@ -39,12 +39,13 @@ $$
 \mathcal{L}_{tot} = \frac{1}{2\sigma_1^2} \mathcal{L}_1 + \frac{1}{2\sigma_2^2} \mathcal{L}_2 + \log(\sigma_1 \sigma_2)
 $$
 
-
 where:
-The loss function is defined as:
-$$ 
-\mathcal{L}_{tot} = \frac{1}{2\sigma_1^2} \mathcal{L}_1 + \frac{1}{2\sigma_2^2} \mathcal{L}_2 + \log(\sigma_1 \sigma_2) 
-$$
+
+L1 is the binary cross-entropy loss for classification.
+
+L2 is the negative log-likelihood loss for hierarchical prediction.
+
+Sigma1 and Sigma2 are learnable parameters that balance the losses.
 
 ## Hierarchical Probing: Understanding the Model’s Knowledge
 To assess whether BioBERT effectively learns the MeSH hierarchy, two **probing tasks** were used:
