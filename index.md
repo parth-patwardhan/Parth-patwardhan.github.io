@@ -57,6 +57,8 @@ The total loss for the multi-task learning framework is defined as:
 ![Alt text](equation.png)
 
 Where :
+
+
 where both  1 and  2 are learnable parameters included in the models parameters to allow the model to balance between the binary and tree number generation losses. The last regularization term is only here to prevent the model to learn the naive solution of just increasing  1 and  2 to reduce the loss. The output vocabulary of the decoder is composed of the tree numbers tokens: A-Z letters, 00-99 digits, and 000-999 digits. All together, the vocabulary size is around 1100, on which we apply an embedding layer to transform discrete tree numbers to a continuous embedding space. As this vocabulary is completely new, embedding is learnt from scratch using back-propagation. Note that for MeSH descriptors that have multiple tree numbers, we just duplicate the inputs to learn the multiple positions in the hierarchy. In both architectures, the full set of parameters is updated during training. Thus, each model provides new representations of the input text and labels, that are further evaluated through zero-shot classification or through probing.
 
 The inclusion of the sigma_1 and sigma_2 term serves as a **regularization factor** that prevents the model from overemphasizing one task at the cost of the other, ensuring a balanced and effective learning process.
