@@ -54,16 +54,9 @@ The proposed model architecture consists of two key components:
 
 The total loss for the multi-task learning framework is defined as:
 
-$$
-\text{loss}_{\text{tot}} = \frac{1}{2\sigma_1^2} \text{loss}_1 + \frac{1}{2\sigma_2^2} \text{loss}_2 + \log(\sigma_1\sigma_2)
-$$
 
-Where:
-
-- $\text{loss}_1$ is the binary cross-entropy loss for the primary classification task (classifying the article into a MeSH category).
-- $\text{loss}_2$ is the negative log-likelihood loss for the auxiliary sequence-to-sequence task (predicting the hierarchical position of MeSH terms).
-- $\sigma_1$ and $\sigma_2$ are learnable parameters that balance the contributions of the two loss components.
-
+Where :
+where both  1 and  2 are learnable parameters included in the models parameters to allow the model to balance between the binary and tree number generation losses. The last regularization term is only here to prevent the model to learn the naive solution of just increasing  1 and  2 to reduce the loss. The output vocabulary of the decoder is composed of the tree numbers tokens: A-Z letters, 00-99 digits, and 000-999 digits. All together, the vocabulary size is around 1100, on which we apply an embedding layer to transform discrete tree numbers to a continuous embedding space. As this vocabulary is completely new, embedding is learnt from scratch using back-propagation. Note that for MeSH descriptors that have multiple tree numbers, we just duplicate the inputs to learn the multiple positions in the hierarchy. In both architectures, the full set of parameters is updated during training. Thus, each model provides new representations of the input text and labels, that are further evaluated through zero-shot classification or through probing.
 
 The inclusion of the sigma_1 and sigma_2 term serves as a **regularization factor** that prevents the model from overemphasizing one task at the cost of the other, ensuring a balanced and effective learning process.
 
@@ -103,7 +96,8 @@ In few-shot settings, where only a limited number of labeled examples are availa
 
 ### Hierarchical Probing
 
-To probe the model's understanding of the hierarchical structure of MeSH terms, we perform experiments to measure how well the model predicts the relationships between MeSH terms. The results indicate that the multi-task framework enables the model to effectively encode hierarchical information, as evidenced by its ability to predict the shortest path distances and common ancestors between MeSH terms.
+To probe the model's understanding of the hierarchical structure of MeSH terms, we perform experiments to measure how well the model predicts the relationships between MeSH terms. The results indicate that the multi-task framework enables the model to effectively encode hierarchical information, as evidenced by its ability to predict the shortest path distances and common ancestors between MeSH terms. To better understand the capacity of pretrained representations to encode hierarchical relations of biomedical terms,we considered two probing tasks, adapted from (Hewitt and Manning 2019).
+
 
 ## Related Work
 
@@ -142,3 +136,4 @@ We present a novel approach to the **zero-shot and few-shot classification** of 
 2. Zhang, Y., & Lee, J. (2021). BERTMeSH: Deep Contextual Representation Learning for Large-Scale Biomedical MeSH Indexing. *Proceedings of the 2021 Conference on Empirical Methods in Natural Language Processing (EMNLP)*.
 3. Sun, W., et al. (2020). HDNN: Hierarchical Deep Neural Network for Biomedical Text Classification. *Journal of Biomedical Informatics*.
 4. Borkar, A., & Naik, R. (2021). Leveraging Retrieval-based Approaches in Biomedical Literature Search. *Journal of Information Retrieval*.
+5. Hewitt, J.; and Manning, C. D. 2019. *A Structural Probe for Finding Syntax in Word Representations*. In Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers), 4129–4138. Minneapolis, Minnesota: Association for Computational Linguistics.
